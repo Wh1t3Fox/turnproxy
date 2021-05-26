@@ -686,9 +686,9 @@ class SocksIn(asyncio.Protocol):
 
 def cli_test(args):
     logging.basicConfig(format='%(message)s', level=logging.DEBUG if args.debug else logging.INFO)
-
     turn_host, turn_port = get_ip4_port(args.turn)
-    peer_host, peer_port = get_ip4_port(args.connect)
+    peer_host, peer_port = args.connect.split(':')
+    peer_port = int(peer_port)
     username = args.user.encode('utf-8')
     password = args.password.encode('utf-8')
 
@@ -723,7 +723,8 @@ def cli_run(args):
     logging.basicConfig(format='%(message)s', level=logging.DEBUG if args.debug else logging.INFO)
 
     turn_host, turn_port = get_ip4_port(args.turn)
-    socks_host, socks_port = get_ip4_port(args.socks)
+    socks_host, socks_port = args.socks.split(':')
+    socks_port = int(socks_port)
     username = args.user.encode('utf-8')
     password = args.password.encode('utf-8')
 
